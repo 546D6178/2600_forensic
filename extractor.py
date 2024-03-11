@@ -14,9 +14,28 @@ def extract_offset(path_to_disk):
     if correspondance:
         offset_start = correspondance.group(1)
         print("Offset de start :", offset_start)
+        return offset_start
     else:
         print("Aucune correspondance trouvée.")
 
+def exec_fls(offset, path_to_disk):
+    commande = f"fls -r -mc -o {offset} {path_to_disk}"
+
+    resultat_fls = subprocess.check_output(commande, shell=True, text=True)
+
+    return resultat_fls
+
+def extraire_input_in_mft(input_, occurrence):
+
+    regex = fr'{occurrence}\|(\d+)-'
+    correspondance = re.search(regex, input_, re.MULTILINE)
+
+    if correspondance:
+        suite_de_chiffres = correspondance.group(1)
+        print(f"regex trouvée pour '{occurrence}':", suite_de_chiffres)
+        return suite_de_chiffres
+    else:
+        print(f"Aucune correspondance trouvée pour '{occurrence}'.")
 
 
 if __name__ == "__main__":
@@ -27,7 +46,14 @@ if __name__ == "__main__":
     fichier = "/mnt/share/Forensic_cours/ewf/disk/disk.E01"
     path_to_disk = fichier
     #path_to_disk = sys.argv[1]
-    extract_offset(path_to_disk)
+    offset_partition = extract_offset(path_to_disk)
+
+    output_fls = exec_fls(offset_partition, path_to_disk)
+
+    test = "qcm_forensic_2600_pdf.exe"
+    extraire_input_in_mft(output_fls,test)
+
+#mft =  icat -o offset_partition 0 > mft
 
 
 #/mnt/share/Forensic_cours/ewf/disk/disk.E01
