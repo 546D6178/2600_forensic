@@ -27,6 +27,10 @@ Attention, les chemins sont normalement sous Windows séparés par des `\`, mais
 
 (historique, download, cookie, cache)
 
+Google like Browser : [click here](https://www.foxtonforensics.com/browser-history-examiner/chrome-history-location)
+
+Firefox : [another one](https://www.foxtonforensics.com/browser-history-examiner/firefox-history-location)
+
 Possible d'ajouter Opera, Opera GX, Brave etc
 
 #### EGDE 
@@ -34,6 +38,8 @@ Possible d'ajouter Opera, Opera GX, Brave etc
 - c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History
 - c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History-journal
 - c/Users/Your_User_Name/AppData/Local/Microsoft/Edge/User Data/Default/Network/cookie
+- c/Users/Your_User_Name/AppData/Local/Microsoft/Edge/User Data/Default/Cache
+- c/Users/Your_User_Name/AppData/Local/Microsoft/Edge/User Data/Default/Bookmarks
 
 
 #### Firefox
@@ -43,6 +49,10 @@ Possible d'ajouter Opera, Opera GX, Brave etc
 #### Chrome
 
 - c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Network/cookie
+- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/History-journal
+- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/History
+- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Cache
+- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Bookmarks
 
 
 #### Internet Explorer 
@@ -59,3 +69,14 @@ Possible d'ajouter Opera, Opera GX, Brave etc
 - C/Windows/system32/winevt/logs/WindowsDefender.evtx
 - C/Windows/system32/winevt/logs/RDP.evtx
 
+
+
+## Fichiers Linux 
+
+### Log 
+
+
+### Conf
+
+
+### any ideas ? 
