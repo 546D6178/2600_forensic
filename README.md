@@ -46,6 +46,9 @@ Possible d'ajouter Opera, Opera GX, Brave etc
 
 - c/Users/Your_User_Name/AppData/Roaming/Mozilla/Firefox/Profiles/xxxx.default-release/cookie.sqlite
 
+- c/Users/Your_User_Name/AppData/Local/Mozilla/Firefox/Profiles/xxxx.default-release/cookie.sqlite
+- c/Users/Your_User_Name/AppData/Local/Mozilla/Firefox/Profiles/
+
 #### Chrome
 
 - c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Network/cookie
