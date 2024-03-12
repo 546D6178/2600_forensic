@@ -27,6 +27,8 @@ Attention, les chemins sont normalement sous Windows séparés par des `\`, mais
 
 (historique, download, cookie, cache)
 
+Possible d'ajouter Opera, Opera GX, Brave etc
+
 #### EGDE 
 
 - c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History
@@ -36,9 +38,24 @@ Attention, les chemins sont normalement sous Windows séparés par des `\`, mais
 
 #### Firefox
 
-C:\Users\Your_User_Name\AppData\Roaming\Mozilla\Firefox\Profiles\xxxx.default-release\cookie.sqlite
+- c:/Users/Your_User_Name/AppData/Roaming/Mozilla/Firefox/Profiles/xxxx.default-release/cookie.sqlite
 
 #### Chrome
 
+- c:/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Network/cookie
+
+
 #### Internet Explorer 
+
+
+
+## Journaux Windows EVTX
+
+- C:/Windows/system32/winevt/logs/system.evtx
+- C:/Windows/system32/winevt/logs/security.evtx
+- C:/Windows/system32/winevt/logs/application.evtx
+- C:/Windows/system32/winevt/logs/powershell.evtx
+- C:/Windows/system32/winevt/logs/wmi.evtx
+- C:/Windows/system32/winevt/logs/WindowsDefender.evtx
+- C:/Windows/system32/winevt/logs/RDP.evtx
 
