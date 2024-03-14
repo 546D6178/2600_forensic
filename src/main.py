@@ -40,7 +40,7 @@ def main():
 		files = parser.list_files(partition)
 
 		## Need to parse targets from yaml²
-		targets = ["qcm_forensic_2600_pdf.exe"]
+		targets = [""]
 
 		# Extract the specified file to the output directory
 		for file in [x for x in files if x["deleted"] == False and x["file_name"] == False]:

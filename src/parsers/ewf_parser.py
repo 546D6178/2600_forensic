@@ -69,7 +69,7 @@ class EWFParser(BaseParser):
 			deleted = file_info[1].endswith("(deleted)")
 			file_name = "($FILE_NAME)" in file_info[1]
 			
-			file_info[1].replace("($FILE_NAME)", "").replace("(deleted)", "")
+			file_info[1] = file_info[1].replace("($FILE_NAME)", "").replace("(deleted)", "")
 			
 			file = {
 				"md5": file_info[0],
@@ -87,6 +87,7 @@ class EWFParser(BaseParser):
 				"deleted": deleted,
 				"file_name": file_name
 			}
+			print(file)
 			files.append(file)
 
 		partition["files"] = files
