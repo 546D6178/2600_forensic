@@ -46,7 +46,9 @@ def main():
 		print("Partitions found in the disk image:")
 		for partition in partitions:
 			print(f" {partition['number']}. {partition['name']} ({partition['size']})")
-		partition_number = int(input("Enter the number of the partition you would like to use: "))
+
+		print("Selecting the Basic data partition")
+		partition_number = [x["number"] for x in partitions if x["name"] == "Basic data partition"][0]
 
 		# Find the partition object that matches the user's choice
 		partition = next((x for x in partitions if x["number"] == partition_number), None)
