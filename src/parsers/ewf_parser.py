@@ -1,4 +1,4 @@
-import re
+import re, os
 
 from parsers import BaseParser
 from utils import run_cmd
@@ -95,7 +95,20 @@ class EWFParser(BaseParser):
 
 	def extract_file(self, partition, file, output_path):
 		# Implementation for extracting a file from an EWF image
-		icat_result = run_cmd(cmd=f"icat -o {partition['start']} {self.image_path} {file['inode']}", raw=True)
 
-		with open(f"{output_path}/{file['name']}", "wb") as f:
-			f.write(icat_result)
+		if file['mode'][2] != 'd':
+
+			icat_result = run_cmd(cmd=f"icat -o {partition['start']} {self.image_path} {file['inode']}", raw=True)
+
+			with open(f"{output_path}/{file['path']}", "wb") as f:
+				f.write(icat_result)
+			return 
+
+		else:
+			
+			for pfile in partition['files']:
+				if file['path'] in pfile['path']:
+					if file["deleted"] == True:
+						file["path"] += "_deleted"
+					os.makedirs(f"{output_path}/{file['path']}", exist_ok=True)
+

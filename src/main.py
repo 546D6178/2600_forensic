@@ -62,16 +62,18 @@ def main():
 
 		# Show user stats about the files in the partition
 		print(f"Files found in the partition: {len(files)}")
-		print(f"Total size of files: {sum([x['size'] for x in files])} bytes")
+		print(f"Total size of files: {sum([int(x['size']) for x in files])} bytes")
 
 		print("="*50)
 
 		## Need to parse targets from yaml file
-		targets = []
+		targets = ["c/Users/Laurent/AppData/Local/Microsoft/Edge/User Data/Default"]
 
 		# Extract the specified file to the output directory
-		for file in [x for x in files if x["deleted"] == False and x["file_name"] == False]:
+		#for file in [x for x in files if x["deleted"] == False and x["file_name"] == False]:
+		for file in [x for x in files if x["file_name"] == False]:
 			if any([x in file["path"] for x in targets]):
+				print(file["path"])
 				parser.extract_file(partition, file, args.output_path)
 
 if __name__ == "__main__":
