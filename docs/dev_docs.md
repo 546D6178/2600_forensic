@@ -22,7 +22,7 @@
 {
   "md5": "0",
   "path": "c/pagefile.sys",
-  "inode": "101177-128-1",
+  "inode": "101177",
   "mode": "r/rr-xr-xr-x",
   "uid": "0",
   "gid": "0",

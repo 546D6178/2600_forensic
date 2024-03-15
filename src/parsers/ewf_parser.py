@@ -64,12 +64,12 @@ class EWFParser(BaseParser):
 		
 		files = []
 		for line in list(filter(None, fls_results.split("\n"))):
-			file_info = "".join(line.split(" ")).split("|")
+			file_info = line.split("|")
 
 			deleted = file_info[1].endswith("(deleted)")
 			file_name = "($FILE_NAME)" in file_info[1]
 			
-			file_info[1] = file_info[1].replace("($FILE_NAME)", "").replace("(deleted)", "")
+			file_info[1] = file_info[1].replace(" ($FILE_NAME)", "").replace(" (deleted)", "")
 			
 			file = {
 				"md5": file_info[0],
@@ -87,7 +87,6 @@ class EWFParser(BaseParser):
 				"deleted": deleted,
 				"file_name": file_name
 			}
-			print(file)
 			files.append(file)
 
 		partition["files"] = files
