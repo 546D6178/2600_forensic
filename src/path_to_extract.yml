@@ -1,0 +1,32 @@
+Chrome:
+- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Network/cookie
+- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/History-journal
+- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/History
+- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Cache
+- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Bookmarks
+Edge:
+- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History
+- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History-journal
+- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/Network/cookie
+- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/Cache
+- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/Bookmarks
+Firefox:
+- c/Users/%Username%/AppData/Roaming/Mozilla/Firefox/Profiles/%Number%.default-release/cookie.sqlite
+- c/Users/%Username%/AppData/Local/Mozilla/Firefox/Profiles/%Number%.default-release/cookie.sqlite
+Registre:
+- c/Windows/System32/config/SAM
+- c/Windows/System32/config/SECURITY
+- c/Windows/System32/config/SOFTWARE
+- c/Windows/System32/config/SYSTEM
+- c/Users/%Username%/NTUSER.DAT
+- c/Users/%Username%/AppData/Local/Microsoft/Windows/UsrClass.dat
+- c/Windows/inf/setupapi.dev.log
+- c/Windows/system32/sru/SRUDB.dat
+Windows EVTX:
+- c/Windows/system32/winevt/logs/system.evtx
+- c/Windows/system32/winevt/logs/security.evtx
+- c/Windows/system32/winevt/logs/application.evtx
+- c/Windows/system32/winevt/logs/powershell.evtx
+- c/Windows/system32/winevt/logs/wmi.evtx
+- c/Windows/system32/winevt/logs/WindowsDefender.evtx
+- c/Windows/system32/winevt/logs/RDP.evtx

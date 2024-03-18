@@ -1,5 +1,6 @@
 import argparse, os
 from parsers import EWFParser
+from extractors import RegistryExtractor
 
 # Import all parsers, extractors and processors
 # then make them available as command-line options
@@ -23,7 +24,8 @@ def main():
 
 		# List all partitions in the disk image
 		partitions = parser.list_partitions()
-	
+		print("list partition done")
+
 		# # Show partitions to the user and ask which partition to list files from
 		# print("Partitions found in the disk image:")
 		# for partition in partitions:
@@ -40,12 +42,20 @@ def main():
 		files = parser.list_files(partition)
 
 		## Need to parse targets from yaml²
-		targets = [""]
+		extractor = RegistryExtractor("./path_to_extract.yml")
+		extractor.init_source_extract()
+
+		files_to_extract = extractor.check_file_to_extract(files)
+
+		for file in files_to_extract:#for file in [x for x in files_to_extract if x["deleted"] == False and x["file_name"] == False]:
+			parser.extract_file(partition,file,args.output_path)
+
+		#targets = [""]
 
 		# Extract the specified file to the output directory
-		for file in [x for x in files if x["deleted"] == False and x["file_name"] == False]:
-			if any([x in file["path"] for x in targets]):
-				parser.extract_file(partition, file, args.output_path)
+		#for file in [x for x in files if x["deleted"] == False and x["file_name"] == False]:
+		#	if any([x in file["path"] for x in targets]):
+		#		parser.extract_file(partition, file, args.output_path)
 
     # # Iterate over each partition and list the files within it
     # for partition in partitions:
