@@ -97,18 +97,16 @@ class EWFParser(BaseParser):
 		# Implementation for extracting a file from an EWF image
 
 		if file['mode'][2] != 'd':
-
+			if file["deleted"] == True:
+				file["path"] += "_deleted"
 			icat_result = run_cmd(cmd=f"icat -o {partition['start']} {self.image_path} {file['inode']}", raw=True)
 
 			with open(f"{output_path}/{file['path']}", "wb") as f:
 				f.write(icat_result)
-			return 
+			return
 
 		else:
 			
 			for pfile in partition['files']:
 				if file['path'] in pfile['path']:
-					if file["deleted"] == True:
-						file["path"] += "_deleted"
 					os.makedirs(f"{output_path}/{file['path']}", exist_ok=True)
-
