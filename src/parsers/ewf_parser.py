@@ -95,12 +95,13 @@ class EWFParser(BaseParser):
 
 	def extract_file(self, partition, file, output_path):
 		# Implementation for extracting a file from an EWF image
-
 		if file['mode'][2] != 'd':
 
 			icat_result = run_cmd(cmd=f"icat -o {partition['start']} {self.image_path} {file['inode']}", raw=True)
 
-			with open(f"{output_path}/{file['path']}", "wb") as f:
+			os.makedirs(f"{output_path}{'/'.join(file['path'].split('/')[:-1])}",exist_ok=True)
+
+			with open(f"{output_path}{file['path']}", "wb") as f:
 				f.write(icat_result)
 			return 
 

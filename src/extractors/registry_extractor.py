@@ -37,7 +37,7 @@ class RegistryExtractor(BaseExtractor):
                 path = replace_placeholder(path)
                     
                 try:
-                    path_checked = next(fil for fil in files if re.search(path,fil["path"]))
+                    path_checked = next(fil for fil in files if re.search(f"{path}$",fil["path"]))
                 except:
                     pass
                 else:
