@@ -99,9 +99,9 @@ class EWFParser(BaseParser):
 
 			icat_result = run_cmd(cmd=f"icat -o {partition['start']} {self.image_path} {file['inode']}", raw=True)
 
-			os.makedirs(f"{output_path}{'/'.join(file['path'].split('/')[:-1])}",exist_ok=True)
+			os.makedirs(f"{output_path}/{'/'.join(file['path'].split('/')[:-1])}",exist_ok=True)
 
-			with open(f"{output_path}{file['path']}", "wb") as f:
+			with open(f"{output_path}/{file['path']}", "wb") as f:
 				f.write(icat_result)
 			return 
 
