@@ -5,11 +5,7 @@ Chrome:
 - c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Cache
 - c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Bookmarks
 Edge:
-- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History
-- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History-journal
-- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/Network/Cookies
-- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/Cache
-- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/Bookmarks
+- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/%Directory%
 Firefox:
 - c/Users/%Username%/AppData/Roaming/Mozilla/Firefox/Profiles/%Number%.default-release/cookie.sqlite
 - c/Users/%Username%/AppData/Local/Mozilla/Firefox/Profiles/%Number%.default-release/cookie.sqlite
