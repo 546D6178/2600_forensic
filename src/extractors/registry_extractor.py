@@ -11,6 +11,16 @@ def replace_placeholder(path: str) -> str:
         path = path.replace("%Number%","\d+")
     return path
 
+### EN COURS ###
+def get_all_path_of_directory(path: str, files: list) -> str:
+    path_checked = []
+
+    for file in [x for x in files if x["file_name"] == False]:
+        if any(path in file["path"]):
+            #print(file["path"])
+            path_checked.append(file["path"])
+            #parser.extract_file(partition, file, args.output_path)
+    return path_checked
 
 class RegistryExtractor(BaseExtractor):
     def __init__(self, source_path):
@@ -35,7 +45,13 @@ class RegistryExtractor(BaseExtractor):
             for path in self.path_to_extract[category]:
                 #check if path contains placeholder (%xxxxx%)
                 path = replace_placeholder(path)
-                    
+
+                ### EN COURS ###
+                #Extract all directory
+                if "%Directory%" in path:
+                    path = path.replace("%Directory%","")
+                    self.valid_path += get_all_path_of_directory(path, files)
+
                 try:
                     path_checked = next(fil for fil in files if re.search(f"{path}$",fil["path"]))
                 except:
