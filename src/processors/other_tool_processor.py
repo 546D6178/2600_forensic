@@ -13,8 +13,8 @@ class OtherToolProcessor(BaseProcessor):
         analysis_results = {}
         # Analysis logic here
 
-        print(f"RUNNING hindsight.py -i `{self.data_path}` -b Chrome -o output/hindsight_result -f jsonl")
-        hindsight_result = run_cmd(f"../hindsight/hindsight.py -i {self.data_path} -b Chrome -o output/hindsight_result -f jsonl")
+        print(f"RUNNING hindsight.py -i `{self.data_path}` -l logs/hindsight.log -b Chrome -o output/hindsight_result -f jsonl")
+        hindsight_result = run_cmd(f"../hindsight/hindsight.py -i {self.data_path} -l logs/hindsight.log -b Chrome -o output/hindsight_result -f jsonl")
         #hindsight.py -i repertoire_Browser -b Chrome -o navigation -f jsonl
 
         return analysis_results
