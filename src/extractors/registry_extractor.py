@@ -9,18 +9,9 @@ def replace_placeholder(path: str) -> str:
         path = path.replace("%Username%","\w+")
         #Replace number
         path = path.replace("%Number%","\d+")
+        #Replace for all directory
+        path = path.replace("%Directory%",".*")
     return path
-
-### EN COURS ###
-def get_all_path_of_directory(path: str, files: list) -> str:
-    path_checked = []
-
-    for file in [x for x in files if x["file_name"] == False]:
-        if any(path in file["path"]):
-            #print(file["path"])
-            path_checked.append(file["path"])
-            #parser.extract_file(partition, file, args.output_path)
-    return path_checked
 
 class RegistryExtractor(BaseExtractor):
     def __init__(self, source_path):
@@ -30,10 +21,12 @@ class RegistryExtractor(BaseExtractor):
     def init_source_extract(self):
         self.path_to_extract = {}
         
+        #open yml
         fd = open(self.source_path,"r")
         raw_content = fd.read()
         fd.close()
 
+        #load yml content in self var
         self.path_to_extract = yaml.load(raw_content, Loader=yaml.Loader)
 
         return self.path_to_extract
@@ -43,21 +36,16 @@ class RegistryExtractor(BaseExtractor):
         
         for category in self.path_to_extract:
             for path in self.path_to_extract[category]:
+                
                 #check if path contains placeholder (%xxxxx%)
                 path = replace_placeholder(path)
 
-                ### EN COURS ###
-                #Extract all directory
-                if "%Directory%" in path:
-                    path = path.replace("%Directory%","")
-                    self.valid_path += get_all_path_of_directory(path, files)
+                #search file which match with path
+                for fil in files:
+                    if re.search(f"{path}$",fil["path"]):
+                        self.valid_path.append(fil)
 
-                try:
-                    path_checked = next(fil for fil in files if re.search(f"{path}$",fil["path"]))
-                except:
-                    pass
-                else:
-                    self.valid_path.append(path_checked)
+
         return self.valid_path
 
     def extract_data(self):
