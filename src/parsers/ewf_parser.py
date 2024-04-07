@@ -14,9 +14,7 @@ class EWFParser(BaseParser):
 		# Implementation for listing partitions in an EWF image
   
 		#check if TSK commands work to know if TSK is installed
-		is_command_available("mmls")
-		is_command_available("fls")
-		is_command_available("icat")
+		is_command_available("mmls -V")
 
 		if self.partitions:
 			return self.partitions

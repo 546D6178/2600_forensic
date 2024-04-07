@@ -7,6 +7,14 @@ class HindsightProcessor(BaseProcessor):
         # Additional initialization for specific tool settings
 
     def analyze_data(self):
+
+        matching_folders = []
+
+        for item in self.data_path:
+            return 1
+        # in progress
+
+
         self.data_path = self.data_path + "/c/Users/Laurent/AppData/Local/Microsoft/Edge/User\ Data/Default"
 
         # Implement analysis logic using other's tools

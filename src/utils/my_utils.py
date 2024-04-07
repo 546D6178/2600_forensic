@@ -14,7 +14,7 @@ def dir_path(string):
 
 def get_path_in_ini(name : str):
 	config = configparser.ConfigParser()
-	config.read('../config.ini')
+	config.read('config.ini')
 	return config.get(name, 'path')
 
 def is_command_available(command):
