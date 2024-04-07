@@ -1,7 +1,7 @@
 import re, os
 
 from parsers import BaseParser
-from utils import run_cmd
+from utils import run_cmd, is_command_available
 
 
 class EWFParser(BaseParser):
@@ -12,6 +12,11 @@ class EWFParser(BaseParser):
 
 	def list_partitions(self):
 		# Implementation for listing partitions in an EWF image
+  
+		#check if TSK commands work to know if TSK is installed
+		is_command_available("mmls")
+		is_command_available("fls")
+		is_command_available("icat")
 
 		if self.partitions:
 			return self.partitions
