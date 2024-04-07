@@ -4,13 +4,15 @@ import re
 from extractors import BaseExtractor
 
 def replace_placeholder(path: str) -> str:
-    if(re.match(".*%[^/]+%.*",path)):
+    if(re.match(".*%[^/]+%.*",path)) or "$" in path:
         #Replace username
         path = path.replace("%Username%","\w+")
         #Replace number
         path = path.replace("%Number%","\d+")
         #Replace for all directory
         path = path.replace("%Directory%",".*")
+        #Replace $MFT
+        path = path.replace("$","\$")
     return path
 
 class FileExtractor(BaseExtractor):
@@ -36,7 +38,7 @@ class FileExtractor(BaseExtractor):
         
         for category in self.path_to_extract:
             for path in self.path_to_extract[category]:
-                
+
                 #check if path contains placeholder (%xxxxx%)
                 path = replace_placeholder(path)
 
@@ -44,7 +46,6 @@ class FileExtractor(BaseExtractor):
                 for fil in files:
                     if re.search(f"{path}$",fil["path"]):
                         self.valid_path.append(fil)
-
 
         return self.valid_path
 
