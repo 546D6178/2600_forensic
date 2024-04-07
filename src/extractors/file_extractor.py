@@ -13,7 +13,7 @@ def replace_placeholder(path: str) -> str:
         path = path.replace("%Directory%",".*")
     return path
 
-class RegistryExtractor(BaseExtractor):
+class FileExtractor(BaseExtractor):
     def __init__(self, source_path):
         super().__init__(source_path)
         # Additional setup for registry extraction

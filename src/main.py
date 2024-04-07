@@ -67,7 +67,7 @@ def main():
 		print("="*50)
 
 		## Need to parse targets from yaml file
-		extractor = extractors.RegistryExtractor("./path_to_extract.yml")
+		extractor = extractors.FileExtractor("./path_to_extract.yml")
 		extractor.init_source_extract()
 
 		files_to_extract = extractor.check_file_to_extract(files)
