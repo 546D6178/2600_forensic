@@ -67,14 +67,21 @@ def main():
 		print("="*50)
 
 		## Need to parse targets from yaml file
-		targets = ["c/Users/Laurent/AppData/Local/Microsoft/Edge/User Data/Default"]
+		extractor = extractors.RegistryExtractor("./path_to_extract.yml")
+		extractor.init_source_extract()
+
+		files_to_extract = extractor.check_file_to_extract(files)
+
+		for file in files_to_extract:#for file in [x for x in files_to_extract if x["deleted"] == False and x["file_name"] == False]:
+			parser.extract_file(partition,file,args.output_path)
 
 		# Extract the specified file to the output directory
 		#for file in [x for x in files if x["deleted"] == False and x["file_name"] == False]:
-		for file in [x for x in files if x["file_name"] == False]:
-			if any([x in file["path"] for x in targets]):
-				#print(file["path"])
-				parser.extract_file(partition, file, args.output_path)
+		#for file in [x for x in files if x["file_name"] == False]:
+		#	if any([x in file["path"] for x in targets]):
+		#		print(file["path"])
+		#		parser.extract_file(partition, file, args.output_path)
+
 
 		processor.analyze_data()
 		

@@ -11,6 +11,14 @@ class BaseExtractor(ABC):
         self.source_path = source_path
 
     @abstractmethod
+    def init_source_extract(self):
+        pass
+
+    @abstractmethod
+    def check_file_to_extract(self, files):
+        pass
+
+    @abstractmethod
     def extract_data(self):
         """
         Extracts relevant data based on specific criteria.
