@@ -1,8 +1,4 @@
-import subprocess
 import platform
-
-def run_cmd(cmd: str, raw=False) -> str:
-	return subprocess.check_output(cmd, shell=True, text=(not raw))
 
 def def_os() -> dict: 
 	my_pc = {
