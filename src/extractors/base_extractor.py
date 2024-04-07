@@ -15,6 +15,10 @@ class BaseExtractor(ABC):
         pass
 
     @abstractmethod
+    def check_file_to_extract(self, files):
+        pass
+
+    @abstractmethod
     def extract_data(self):
         """
         Extracts relevant data based on specific criteria.
