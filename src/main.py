@@ -20,7 +20,7 @@ available_processors = [p for p in processors.__dict__.keys() if "Processor" in 
 # Create the command-line argument parser
 parser = argparse.ArgumentParser(description='Forensic Toolkit')
 parser.add_argument('--image', '-i', dest="image_path", type=str, help='The path to the disk image')
-parser.add_argument('--output', '-o', dest="output_path", type=utils.dir_path, default="output", help='The path to the output directory')
+parser.add_argument('--output', '-o', dest="output_path", type=utils.dir_path, default=utils.get_path_in_ini("Output_dir"), help='The path to the output directory')
 parser.add_argument('--parser', '-p', dest="parser_type", type=str, default=available_parsers[0], choices=available_parsers, help='The type of parser to use')
 parser.add_argument('--extractors', '-e', dest="extractor_type", type=str, default=available_extractors[0], choices=available_extractors, help='The types of extractors to use', nargs='+')
 parser.add_argument('--processors', '-pr', dest="processor_type", type=str, default=available_processors[1], choices=available_processors, help='The types of processors to use', nargs='+')

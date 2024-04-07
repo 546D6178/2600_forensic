@@ -16,7 +16,7 @@ class BaseProcessor(ABC):
         #get_path_tool if path_exe is None
         if path_exe is None:
             class_name = type(self).__name__[:-len("Processor")]
-            path_exe = utils.get_path_tools(class_name)
+            path_exe = utils.get_path_in_ini(class_name)
 
         # check if executable is installed
         if not os.path.exists(self.path_exe):

@@ -12,10 +12,10 @@ def dir_path(string):
         raise NotADirectoryError(string)
 
 
-def get_path_tools(tool_name : str):
+def get_path_in_ini(name : str):
 	config = configparser.ConfigParser()
 	config.read('../config.ini')
-	return config.get(tool_name, 'path')
+	return config.get(name, 'path')
 
 def is_command_available(command):
     """
