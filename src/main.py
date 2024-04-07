@@ -72,7 +72,8 @@ def main():
 
 		files_to_extract = extractor.check_file_to_extract(files)
 
-		for file in files_to_extract:#for file in [x for x in files_to_extract if x["deleted"] == False and x["file_name"] == False]:
+		#Extract files
+		for file in [x for x in files_to_extract if x["deleted"] == False and x["file_name"] == False]:
 			parser.extract_file(partition,file,args.output_path)
 
 		# Extract the specified file to the output directory

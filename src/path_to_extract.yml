@@ -22,3 +22,5 @@ Windows EVTX:
 - c/Windows/System32/winevt/Logs/Wmi.evtx
 - c/Windows/System32/winevt/Logs/WindowsDefender.evtx
 - c/Windows/System32/winevt/Logs/RDP.evtx
+MFT:
+- c/$MFT
