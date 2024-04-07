@@ -2,18 +2,8 @@ import yaml
 import re
 
 from extractors import BaseExtractor
+from extractors.base_extractor import replace_placeholder
 
-def replace_placeholder(path: str) -> str:
-    if(re.match(".*%[^/]+%.*",path)) or "$" in path:
-        #Replace username
-        path = path.replace("%Username%","\w+")
-        #Replace number
-        path = path.replace("%Number%","\d+")
-        #Replace for all directory
-        path = path.replace("%Directory%",".*")
-        #Replace $MFT
-        path = path.replace("$","\$")
-    return path
 
 class FileExtractor(BaseExtractor):
     def __init__(self, source_path):
