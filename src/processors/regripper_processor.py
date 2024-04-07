@@ -1,17 +1,17 @@
 import subprocess
 import os
 
-from helpers import BaseHelper
+from processors import BaseProcessor
 
-class RegRipperHelper(BaseHelper):
-    def __init__(self, path_exe: str) -> None:
+class RegRipperProcessor(BaseProcessor):
+    def __init__(self, data_path, path_exe: str) -> None:
         """
         Initialization of class and verification of the path of global variables.
 
         Parameters:
             - path_exe: Path to Reg Ripper executable
         """
-        super().__init__(path_exe)
+        super().__init__(data_path, path_exe)
 
     def exec_usbstor(self, filepath: str):
         """

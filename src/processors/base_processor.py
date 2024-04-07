@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
+import os
+import subprocess
+import utils
 
 class BaseProcessor(ABC):
-    def __init__(self, data_path):
+    def __init__(self, data_path, path_exe: str=None):
         """
         Initialize the processor with the path to the data that needs to be analyzed.
 
@@ -9,6 +12,24 @@ class BaseProcessor(ABC):
         - data_path (str): The file path or directory containing the data for analysis.
         """
         self.data_path = data_path
+
+        #get_path_tool if path_exe is None
+        if path_exe is None:
+            class_name = type(self).__name__[:-len("Processor")]
+            path_exe = utils.get_path_tools(class_name)
+
+        # check if executable is installed
+        if not os.path.exists(self.path_exe):
+            raise FileNotFoundError(f"{os.path.basename(self.path_exe)} not found on system. Please verify your {os.path.basename(self.path_exe)} path into your config.py file.")
+
+        # check if executable is functional
+        ret = subprocess.run(self.path_exe, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if ret.returncode != 0:
+            raise ValueError(f"Cannot execute {os.path.basename(self.path_exe)}. Please verify your {os.path.basename(self.path_exe)} path into your config.py file.")
+        
+        self.path_exe = path_exe
+        
+
 
     @abstractmethod
     def analyze_data(self):

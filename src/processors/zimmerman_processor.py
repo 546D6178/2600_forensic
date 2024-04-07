@@ -1,8 +1,8 @@
 from processors import BaseProcessor
 
 class ZimmermanToolProcessor(BaseProcessor):
-    def __init__(self, data_path):
-        super().__init__(data_path)
+    def __init__(self, data_path, path_exe):
+        super().__init__(data_path, path_exe)
         # Additional initialization for specific tool settings
 
     def analyze_data(self):

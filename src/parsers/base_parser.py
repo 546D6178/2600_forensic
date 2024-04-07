@@ -1,4 +1,7 @@
 from abc import ABC, abstractmethod
+import os
+import subprocess
+import utils
 
 class BaseParser(ABC):
     def __init__(self, image_path):
