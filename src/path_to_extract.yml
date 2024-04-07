@@ -1,9 +1,5 @@
 Chrome:
-- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Network/cookie
-- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/History-journal
-- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/History
-- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Cache
-- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/Bookmarks
+- c/Users/%Username%/AppData/Local/Google/Chrome/User Data/Default/%Directory%
 Edge:
 - c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/%Directory%
 Firefox:
