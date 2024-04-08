@@ -59,9 +59,7 @@ def main():
 	print(f"Total size of files: {sum([int(x['size']) for x in files])} bytes")
 
 	print("="*50)
-	processor.analyze_data()
-	exit
-	print("break")
+
 	## Need to parse targets from yaml file
 	extractor = extractors.FileExtractor("./path_to_extract.yml")
 	extractor.init_source_extract()
