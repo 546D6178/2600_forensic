@@ -28,27 +28,6 @@ args = parser.parse_args()
 
 def main():
 
-
-	print("Selecting the host OS")
-	my_pc = def_os()
-
-	if which_os(my_pc) == "Windows":
-		print("Windows detected")
-		## Need to parse targets from yaml file
-		extractor = extractors.FileExtractor("./path_to_extract_windows.yml")
-	elif which_os(my_pc) == "Linux":
-		print("Linux detected")
-		extractor = extractors.FileExtractor("./path_to_extract_linux.yml")
-	elif which_os(my_pc) == "Mac":
-		print("Mac detected")
-		extractor = extractors.FileExtractor("./path_to_extract_mac.yml")
-	else:
-		raise ValueError("Error: OS not found")
-
-	print("wait")
-	import time 
-	time.sleep(10)
-
 	# Initialize the parser with the disk image path
 	parser = parsers.__dict__[args.parser_type](args.image_path)
 	processor = processors.__dict__[args.processor_type](args.output_path)
@@ -81,7 +60,7 @@ def main():
 
 	print("="*50)
 	print("Selecting the host OS")
-	my_pc = get_os
+	my_pc = def_os()
 
 	if which_os(my_pc) == "Windows":
 		print("Windows detected")
@@ -95,8 +74,6 @@ def main():
 		extractor = extractors.FileExtractor("./path_to_extract_mac.yml")
 	else:
 		raise ValueError("Error: OS not found")
-
-
 
 	extractor.init_source_extract()
 
