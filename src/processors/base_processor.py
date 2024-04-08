@@ -13,21 +13,41 @@ class BaseProcessor(ABC):
         """
         self.data_path = data_path
 
+        #def print_special_characters(string):
+         #   for char in string:
+          #      print(f"{char}: {ord(char)}")
+
+
         #get_path_tool if path_exe is None
         if path_exe is None:
             class_name = type(self).__name__[:-len("Processor")]
             path_exe = utils.get_path_in_ini(class_name)
+            print(path_exe)
+
+        self.path_exe = path_exe
+
+        print(self.path_exe)
+        
+        try:
+            # Exécutez la commande avec subprocess et vérifiez si elle s'est terminée avec succès
+            subprocess.run([self.path_exe], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except FileNotFoundError:
+            # Si le fichier exécutable n'est pas trouvé
+            raise FileNotFoundError(f"{self.path_exe} not found on system. Please verify your {self.path_exe} path into your config.py file.")
+        except subprocess.CalledProcessError:
+            # Si la commande échoue à s'exécuter
+            raise RuntimeError(f"Cannot execute {self.path_exe}. Please verify your {self.path_exe} path into your config.py file.")
+
 
         # check if executable is installed
-        if not os.path.exists(self.path_exe):
-            raise FileNotFoundError(f"{os.path.basename(self.path_exe)} not found on system. Please verify your {os.path.basename(self.path_exe)} path into your config.py file.")
-
-        # check if executable is functional
-        ret = subprocess.run(self.path_exe, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if ret.returncode != 0:
-            raise ValueError(f"Cannot execute {os.path.basename(self.path_exe)}. Please verify your {os.path.basename(self.path_exe)} path into your config.py file.")
+  #       if not os.path.exists(self.path_exe):
+   #          raise FileNotFoundError(f"{self.path_exe} not found on system. Please verify your {self.path_exe} path into your config.py file.")
         
-        self.path_exe = path_exe
+        # check if executable is functional
+   #      ret = subprocess.run(f"{self.path_exe}", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+   #      if ret.returncode != 0:
+   #          raise ValueError(f"Cannot execute {self.path_exe}. Please verify your {self.path_exe} path into your config.py file.")
+        
         
 
 

@@ -2,7 +2,7 @@ import argparse, os
 import parsers
 import extractors
 import processors
-import utils
+from utils import dir_path, get_path_in_ini
 
 # Import all parsers, extractors and processors
 # then make them available as command-line options
@@ -19,14 +19,15 @@ available_processors = [p for p in processors.__dict__.keys() if "Processor" in 
 
 # Create the command-line argument parser
 parser = argparse.ArgumentParser(description='Forensic Toolkit')
-parser.add_argument('--image', '-i', dest="image_path", type=str, help='The path to the disk image')
-parser.add_argument('--output', '-o', dest="output_path", type=utils.dir_path, default=utils.get_path_in_ini("Output_dir"), help='The path to the output directory')
+parser.add_argument('--image', '-i', dest="image_path", type=str, default=get_path_in_ini("Image_path") ,help='The path to the disk image')
+parser.add_argument('--output', '-o', dest="output_path", type=dir_path, default=get_path_in_ini("Output_dir"), help='The path to the output directory')
 parser.add_argument('--parser', '-p', dest="parser_type", type=str, default=available_parsers[0], choices=available_parsers, help='The type of parser to use')
 parser.add_argument('--extractors', '-e', dest="extractor_type", type=str, default=available_extractors[0], choices=available_extractors, help='The types of extractors to use', nargs='+')
 parser.add_argument('--processors', '-pr', dest="processor_type", type=str, default=available_processors[1], choices=available_processors, help='The types of processors to use', nargs='+')
 args = parser.parse_args()
 
 def main():
+
 	# Initialize the parser with the disk image path
 	parser = parsers.__dict__[args.parser_type](args.image_path)
 	processor = processors.__dict__[args.processor_type](args.output_path)
@@ -58,7 +59,9 @@ def main():
 	print(f"Total size of files: {sum([int(x['size']) for x in files])} bytes")
 
 	print("="*50)
-
+	processor.analyze_data()
+	exit
+	print("break")
 	## Need to parse targets from yaml file
 	extractor = extractors.FileExtractor("./path_to_extract.yml")
 	extractor.init_source_extract()
@@ -75,7 +78,6 @@ def main():
 	#	if any([x in file["path"] for x in targets]):
 	#		print(file["path"])
 	#		parser.extract_file(partition, file, args.output_path)
-
 
 	processor.analyze_data()
 		
