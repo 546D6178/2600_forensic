@@ -1,3 +1,4 @@
+import re
 from abc import ABC, abstractmethod
 
 def replace_placeholder(path: str) -> str:
