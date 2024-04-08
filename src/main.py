@@ -20,6 +20,7 @@ available_processors = [p for p in processors.__dict__.keys() if "Processor" in 
 # Create the command-line argument parser
 parser = argparse.ArgumentParser(description='Forensic Toolkit')
 parser.add_argument('--image', '-i', dest="image_path", type=str, default=get_path_in_ini("Image_path") ,help='The path to the disk image')
+parser.add_argument('--os', '-s', dest="os", type=str, default="Windows", help="OS of the disk image (default:Windows, Linux, Max)")
 parser.add_argument('--output', '-o', dest="output_path", type=dir_path, default=get_path_in_ini("Output_dir"), help='The path to the output directory')
 parser.add_argument('--parser', '-p', dest="parser_type", type=str, default=available_parsers[0], choices=available_parsers, help='The type of parser to use')
 parser.add_argument('--extractors', '-e', dest="extractor_type", type=str, default=available_extractors[0], choices=available_extractors, help='The types of extractors to use', nargs='+')
@@ -59,24 +60,26 @@ def main():
 	print(f"Total size of files: {sum([int(x['size']) for x in files])} bytes")
 
 	print("="*50)
-	print("Selecting the host OS")
-	my_pc = def_os()
+	print("Selecting the disk OS")
 
-	if which_os(my_pc) == "Windows":
+	#Init file extractor with the correct yml
+	if args.os == "Windows":
 		print("Windows detected")
 		## Need to parse targets from yaml file
 		extractor = extractors.FileExtractor("./path_to_extract_windows.yml")
-	elif which_os(my_pc) == "Linux":
+	elif args.os == "Linux":
 		print("Linux detected")
 		extractor = extractors.FileExtractor("./path_to_extract_linux.yml")
-	elif which_os(my_pc) == "Mac":
+	elif args.os == "Mac":
 		print("Mac detected")
 		extractor = extractors.FileExtractor("./path_to_extract_mac.yml")
 	else:
-		raise ValueError("Error: OS not found")
+		raise ValueError("Error: Wrong OS in parameter (Windows or Linux os Mac)")
 
+	#Init source before extract with yml
 	extractor.init_source_extract()
 
+	#Get all files available to extract in the disk image
 	files_to_extract = extractor.check_file_to_extract(files)
 
 	#Extract files
@@ -89,7 +92,29 @@ def main():
 	#	if any([x in file["path"] for x in targets]):
 	#		print(file["path"])
 	#		parser.extract_file(partition, file, args.output_path)
+	
+	print("Selecting the host OS")
+	my_pc = def_os()
 
+	if which_os(my_pc) == "Windows":
+		print("Windows detected")
+		#Execute processors compatible with Windows
+		
+		#EvtxECmd
+		evtx = processors.EvtxProcessor("./",get_path_in_ini("EvtxECmd"))
+		evtx.analyze_data(files_to_extract, args.output_path)
+	elif which_os(my_pc) == "Linux":
+		print("Linux detected")
+		#Execute processors compatible with Linux
+		
+	elif which_os(my_pc) == "Mac":
+		print("Mac detected")
+		#Execute processors compatible with Mac
+
+	else:
+		raise ValueError("Error: OS not found")
+
+	
 	processor.analyze_data()
 		
 
