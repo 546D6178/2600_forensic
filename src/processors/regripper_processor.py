@@ -1,5 +1,6 @@
 import subprocess
 import os
+from utils import find_paths_in_folder
 
 from processors import BaseProcessor
 
@@ -56,3 +57,21 @@ class RegRipperProcessor(BaseProcessor):
             raise RuntimeError("An unexpected error occured in exec_shellbags function.\n" + \
                     "Subprocess response:\n{}".format(ret.stdout.strip()))
         return ret
+
+
+    def analyze_data(self):
+        #pas tester encore
+        path_system_hive = find_paths_in_folder(self.data_path, r"*.c/Windows/System32/config/SYSTEM.*")
+        ntuserdotdat = find_paths_in_folder(self.data_path, r"*.c/Users/%Username%/NTUSER.DAT.*")
+        userclassdotdat = find_paths_in_folder(self.data_path, r"*.c/Users/%Username%/AppData/Local/Microsoft/Windows/UsrClass.dat.*")
+        path_software_hive = find_paths_in_folder(self.data_path, r"*.c/Windows/System32/config/SOFTWARE.*")
+
+        if path_system_hive:
+            exec_usbstor(self, path_system_hive) 
+            exec_mountdev(self, path_system_hive)
+        if ntuserdotdat:
+            exec_mp2(self, ntuserdotdat)
+        if userclassdotdat:
+            exec_shellbags(self, userclassdotdat)
+        if path_software_hive:
+            pass
