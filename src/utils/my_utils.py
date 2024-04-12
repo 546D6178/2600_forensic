@@ -69,6 +69,20 @@ def find_paths_in_folder(folder_path, pattern):
 
     return False
 
+def find_multiple_paths_in_folder(folder_path, pattern):
+    list_path = []
+    for p in Path(folder_path).rglob( '*' ):
+        if re.search(pattern, str(p), flags=re.IGNORECASE):
+            chemin_absolu = os.path.abspath(p)
+            list_path.append(str(chemin_absolu))
+     
+    if not list_path:
+         return False
+    else:
+        return list_path
+        
+   
+
 def escape_spaces(path):
     """
     Échappe les espaces dans le chemin donné.
