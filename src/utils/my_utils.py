@@ -24,11 +24,19 @@ def dir_path(string):
             print(path_dir)
             raise NotADirectoryError(path_dir)
 
-
+#Get path value from config.ini
 def get_path_in_ini(name : str):
+    #Check config.ini exists
+    if not os.path.isfile('config.ini'):
+        raise ValueError(f"config.ini not found. Check config.ini exists and you execute main.py in src directory")
+
     config = configparser.ConfigParser()
     config.read('config.ini')
     path = config.get(name, 'path')
+
+    #Case a path is undefined
+    if path == "":
+        raise ValueError(f"Please set a value in config.ini for {name}")
     return path
 
 def is_command_available(command):

@@ -21,17 +21,13 @@ available_processors = [p for p in processors.__dict__.keys() if "Processor" in 
 parser = argparse.ArgumentParser(description='Forensic Toolkit')
 parser.add_argument('--image', '-i', dest="image_path", type=str, default=get_path_in_ini("Image_path") ,help='The path to the disk image')
 parser.add_argument('--os', '-s', dest="os", type=str, default="Windows", help="OS of the disk image (default:Windows, Linux, Max)")
-parser.add_argument('--output', '-o', dest="output_path", type=dir_path, default=get_path_in_ini("Output_dir"), help='The path to the output directory')
+parser.add_argument('--output', '-o', dest="output_path", type=str, default=get_path_in_ini("Output_dir"), help='The path to the output directory')
 parser.add_argument('--parser', '-p', dest="parser_type", type=str, default=available_parsers[0], choices=available_parsers, help='The type of parser to use')
-parser.add_argument('--extractors', '-e', dest="extractor_type", type=str, default=available_extractors[0], choices=available_extractors, help='The types of extractors to use', nargs='+')
-parser.add_argument('--processors', '-pr', dest="processor_type", type=str, default=available_processors[1], choices=available_processors, help='The types of processors to use', nargs='+')
 args = parser.parse_args()
 
 def main():
-
 	# Initialize the parser with the disk image path
 	parser = parsers.__dict__[args.parser_type](args.image_path)
-	processor = processors.__dict__[args.processor_type](args.output_path)
 	# List all partitions in the disk image
 	print("="*50)
 	print(f"Listing partitions in the disk image: {args.image_path}")
@@ -81,41 +77,53 @@ def main():
 
 	#Get all files available to extract in the disk image
 	files_to_extract = extractor.check_file_to_extract(files)
-
-	#Extract files
-	for file in [x for x in files_to_extract if x["deleted"] == False and x["file_name"] == False]:
-		parser.extract_file(partition,file,args.output_path)
-
-	# Extract the specified file to the output directory
-	#for file in [x for x in files if x["deleted"] == False and x["file_name"] == False]:
-	#for file in [x for x in files if x["file_name"] == False]:
-	#	if any([x in file["path"] for x in targets]):
-	#		print(file["path"])
-	#		parser.extract_file(partition, file, args.output_path)
 	
 	print("Selecting the host OS")
 	my_pc = def_os()
 
-	if which_os(my_pc) == "Windows":
-		print("Windows detected")
-		#Execute processors compatible with Windows
-		
-		#EvtxECmd
-		evtx = processors.EvtxProcessor("./",get_path_in_ini("EvtxECmd"))
-		evtx.analyze_data(files_to_extract, args.output_path)
-	elif which_os(my_pc) == "Linux":
-		print("Linux detected")
-		#Execute processors compatible with Linux
-		
-	elif which_os(my_pc) == "Mac":
-		print("Mac detected")
-		#Execute processors compatible with Mac
+	match which_os(my_pc):
+		case "Windows":
+			print("Windows detected")
+			#Execute processors compatible with Windows
+			
+			#EvtxECmd
+			try:
+				evtx = processors.EvtxProcessor(args.output_path,get_path_in_ini("EvtxECmd"))
+				evtx.analyze_data(files_to_extract)
+			except Exception as e:
+				print(f"Processor EvtxECmd failed with the following error:\n{e}\nSkip")
 
-	else:
-		raise ValueError("Error: OS not found")
+			#Reg Ripper
+			try:
+				regripper = processors.RegRipperProcessor("./",get_path_in_ini("RegRipper"))
+				regripper.analyze_data()
+			except Exception as e:
+				print(f"Processor Reg Ripper failed with the following error:\n{e}\nSkip")
 
-	
-	processor.analyze_data()
+			#Hindsight
+			try:
+				hindsight = processors.HindsightProcessor("./",get_path_in_ini("Hindsight"))
+				hindsight.analyze_data()
+			except Exception as e:
+				print(f"Processor Hindsight failed with the following error:\n{e}\nSkip")
+		
+		case "Linux":
+			print("Linux detected")
+			#Execute processors compatible with Linux
+
+			#Hindsight
+			try:
+				hindsight = processors.HindsightProcessor("./",get_path_in_ini("Hindsight"))
+				hindsight.analyze_data()
+			except Exception as e:
+				print(f"Processor Hindsight failed with the following error:\n{e}\nSkip")
+
+		case "Mac":
+			print("Mac detected")
+			#Execute processors compatible with Mac
+
+		case _:
+			raise ValueError("Error: OS not found")
 		
 
 if __name__ == "__main__":
