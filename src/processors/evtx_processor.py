@@ -10,10 +10,10 @@ class EvtxProcessor(BaseProcessor):
 
     def analyze_data(self, extracted_file):
         output_path = os.path.abspath(self.data_path)
-        os.makedirs(f"{os.path.join(output_path,"evtx_report")}",exist_ok=True)
+        os.makedirs(f"{os.path.join(output_path,'evtx_report')}",exist_ok=True)
         for file in extracted_file:
             if file["path"].endswith(".evtx"):
-                run_cmd(f"`{self.path_exe}` -f {os.path.join(output_path,file["path"])} --json \"{os.path.join(output_path,"evtx_report")}\"")
+                run_cmd(f"`{self.path_exe}` -f {os.path.join(output_path,file['path'])} --json \"{os.path.join(output_path,'evtx_report')}\"")
 
     def generate_report(self, analysis_results, report_path):
         pass

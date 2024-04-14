@@ -78,6 +78,9 @@ def main():
 	#Get all files available to extract in the disk image
 	files_to_extract = extractor.check_file_to_extract(files)
 	
+	for file in [x for x in files_to_extract if x["deleted"] == False and x["file_name"] == False]:
+		parser.extract_file(partition, file, args.output_path)
+
 	print("Selecting the host OS")
 	my_pc = def_os()
 
@@ -129,5 +132,6 @@ def main():
 if __name__ == "__main__":
 	try:
 		main()
+		print(f"Extracted files can be found at {args.output_path}")
 	except KeyboardInterrupt:
 		print('Process interrupted by user')
