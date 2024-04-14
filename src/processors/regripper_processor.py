@@ -79,7 +79,6 @@ class RegRipperProcessor(BaseProcessor):
     
 
     def analyze_data(self):
-        #pas teste encore
         path_system_hive = find_paths_in_folder(self.data_path, r".*[\\/](c[\\/])?Windows[\\/]?System32[\\/]?config[\\/]?SYSTEM")
         ntuserdotdat = find_multiple_paths_in_folder(self.data_path, r".*[\\/](c[\\/])?Users[\\/][^\\/]+[\\/]?NTUSER\.DAT")
         userclassdotdat = find_multiple_paths_in_folder(self.data_path, r".*[\\/](c[\\/])?Users[\\/][^\\/]+[\\/]?AppData[\\/]?Local[\\/]?Microsoft[\\/]?Windows[\\/]?UsrClass\.dat")

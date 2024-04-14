@@ -1,85 +1,58 @@
 # 2600_forensic
 
-## Prérequis 
+## Descriptions 
 
-- sleuth kit
-- reg ripper
-- evtxcmd ? (evtx to json)
+Voici notre outil d’extraction de données forensique. 
+
+## Prérequis et installation
+
+- The Sleuth Kit
+- [reg ripper](https://github.com/keydet89/RegRipper3.0)
+- [evtxcmd](https://github.com/EricZimmerman/evtx)
 - [hindsight-master](https://github.com/obsidianforensics/hindsight) (extraire donnée de navigation)
 
+Veuillez renseignez les liens des outils dans le fichier ``config.ini`` en respectant le format attendu. 
 
-## Liste minimum à extraire
+L'installation des requierements : `pip3 install -r requirements.txt`
+
+## Notes
 
 Attention, les chemins sont normalement sous Windows séparés par des `\`, mais dans fls c'est le `/` qui est utilisé. Exemple : `c/Users/Laurent/AppData/Local/Microsoft/Edge/User Data/Default/History`
 
-### Le registre
+Nous gérons une liste de fichier à extraire en fonction de l'OS de l'image disque cible via les fichiers `path_to_extract_%os_name%`.  
 
-- c/Windows/System32/config/SAM
-- c/Windows/System32/config/SECURITY
-- c/Windows/System32/config/SOFTWARE
-- c/Windows/System32/config/SYSTEM
-- c/Users/%Username%/NTUSER.DAT
-- c/Users/%Username%/AddData/Local/Microsoft/Windows/UsrClass.dat
-- c/Windows/inf/setupapi.dev.log
-- c/Windows/system32/sru/SRUDB.dat
+## Utilisation 
 
-### Navigation internet 
+Vous pouvez obtenir le message d'aidee avec un `-h `
 
-(historique, download, cookie, cache)
+````bash
+python3 main.py -h                                              
+usage: main.py [-h] [--image IMAGE_PATH] [--os OS] [--output OUTPUT_PATH] [--parser {EWFParser}] [--extractors {FileExtractor} [{FileExtractor} ...]]
+               [--processors {HindsightProcessor,RegRipperProcessor} [{HindsightProcessor,RegRipperProcessor} ...]]
 
-Google like Browser : [click here](https://www.foxtonforensics.com/browser-history-examiner/chrome-history-location)
+Forensic Toolkit
 
-Firefox : [another one](https://www.foxtonforensics.com/browser-history-examiner/firefox-history-location)
+options:
+  -h, --help            show this help message and exit
+  --image IMAGE_PATH, -i IMAGE_PATH
+                        The path to the disk image
+  --os OS, -s OS        OS of the disk image (default:Windows, Linux, Max)
+  --output OUTPUT_PATH, -o OUTPUT_PATH
+                        The path to the output directory
+  --parser {EWFParser}, -p {EWFParser}
+                        The type of parser to use
+  --extractors {FileExtractor} [{FileExtractor} ...], -e {FileExtractor} [{FileExtractor} ...]
+                        The types of extractors to use
+  --processors {HindsightProcessor,RegRipperProcessor} [{HindsightProcessor,RegRipperProcessor} ...], -pr {HindsightProcessor,RegRipperProcessor} [{HindsightProcessor,RegRipperProcessor} ...]
+                        The types of processors to use
+````
 
-Possible d'ajouter Opera, Opera GX, Brave etc
+Le script lorsqu'il est appelé interprète l'OS cible de l'image disque comme Windows par défaut. 
 
-#### EGDE 
+Le chemin de l'image s'il n'est pas renseigné sera celui définit dans ``[Image_path]`` dans le fichier ``config.ini``.
 
-- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History
-- c/Users/%Username%/AppData/Local/Microsoft/Edge/User Data/Default/History-journal
-- c/Users/Your_User_Name/AppData/Local/Microsoft/Edge/User Data/Default/Network/cookie
-- c/Users/Your_User_Name/AppData/Local/Microsoft/Edge/User Data/Default/Cache
-- c/Users/Your_User_Name/AppData/Local/Microsoft/Edge/User Data/Default/Bookmarks
+Le script lance donc les outils disponibles. 
 
+Les fichiers extraits iront dans le dossier ``OUTPUT_PATH`` qui par défaut est le fichier définit ``[Output_dir]`` dans le fichier ``config.ini``.
 
-#### Firefox
-
-- c/Users/Your_User_Name/AppData/Roaming/Mozilla/Firefox/Profiles/xxxx.default-release/cookie.sqlite
-
-- c/Users/Your_User_Name/AppData/Local/Mozilla/Firefox/Profiles/xxxx.default-release/cookie.sqlite
-- c/Users/Your_User_Name/AppData/Local/Mozilla/Firefox/Profiles/
-
-#### Chrome
-
-- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Network/cookie
-- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/History-journal
-- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/History
-- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Cache
-- c/Users/Your_User_Name/AppData/Local/Google/Chrome/User Data/Default/Bookmarks
-
-
-#### Internet Explorer 
-
-
-
-## Journaux Windows EVTX
-
-- C/Windows/system32/winevt/logs/system.evtx
-- C/Windows/system32/winevt/logs/security.evtx
-- C/Windows/system32/winevt/logs/application.evtx
-- C/Windows/system32/winevt/logs/powershell.evtx
-- C/Windows/system32/winevt/logs/wmi.evtx
-- C/Windows/system32/winevt/logs/WindowsDefender.evtx
-- C/Windows/system32/winevt/logs/RDP.evtx
-
-
-
-## Fichiers Linux 
-
-### Log 
-
-
-### Conf
-
-
-### any ideas ? 
+Vous pouvez retrouver les logs d'executions dans le dossier `logs`. 
