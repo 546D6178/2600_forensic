@@ -1,6 +1,8 @@
 local
 output
 *.log
+logs/*
+!logs/.init
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
