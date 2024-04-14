@@ -27,8 +27,7 @@ Vous pouvez obtenir le message d'aidee avec un `-h `
 
 ````bash
 python3 main.py -h                                              
-usage: main.py [-h] [--image IMAGE_PATH] [--os OS] [--output OUTPUT_PATH] [--parser {EWFParser}] [--extractors {FileExtractor} [{FileExtractor} ...]]
-               [--processors {HindsightProcessor,RegRipperProcessor} [{HindsightProcessor,RegRipperProcessor} ...]]
+usage: main.py [-h] [--image IMAGE_PATH] [--os OS] [--output OUTPUT_PATH] [--parser {EWFParser}]
 
 Forensic Toolkit
 
@@ -41,10 +40,7 @@ options:
                         The path to the output directory
   --parser {EWFParser}, -p {EWFParser}
                         The type of parser to use
-  --extractors {FileExtractor} [{FileExtractor} ...], -e {FileExtractor} [{FileExtractor} ...]
-                        The types of extractors to use
-  --processors {HindsightProcessor,RegRipperProcessor} [{HindsightProcessor,RegRipperProcessor} ...], -pr {HindsightProcessor,RegRipperProcessor} [{HindsightProcessor,RegRipperProcessor} ...]
-                        The types of processors to use
+
 ````
 
 Le script lorsqu'il est appelé interprète l'OS cible de l'image disque comme Windows par défaut. 
