@@ -32,7 +32,7 @@ class HindsightProcessor(BaseProcessor):
                 else:
                     res = run_cmd(f"{self.path_exe} -i \"{file}\" -l '../logs/hindsight_chrome.log' -b Chrome -o \"{output_file}\" -f jsonl")
                 if res is False:
-                    print(f"La commande {self.path_exe} -i {file} -l '../logs/hindsight_edge.log' -b Chrome -o '{output_file}' -f jsonl a échoué ou s'est mal terminée.")
+                    print(f"La commande {self.path_exe} -i {file} -l '../logs/hindsight_chrome.log' -b Chrome -o '{output_file}' -f jsonl a échoué ou s'est mal terminée.")
                     break
                 
         if match_edge is not False:
