@@ -5,7 +5,13 @@ import re
 from pathlib import Path
 
 def run_cmd(cmd: str, raw=False) -> str:
-	return subprocess.check_output(cmd, shell=True, text=(not raw))
+    try: 
+        output = subprocess.check_output(cmd, shell=True, text=(not raw))
+        return output
+    except subprocess.CalledProcessError as e:
+        # Gestion de l'erreur sans arrêter l'exécution du code
+        print(f"Erreur lors de l'exécution de la commande : {e}")
+        return False
 
 def dir_path(string):
     #path_dir = os.path.abspath(string)
@@ -58,9 +64,6 @@ def find_paths_in_folder(folder_path, pattern):
         list: Liste des chemins correspondant au modèle.
     """
     for p in Path(folder_path).rglob( '*' ):
-        #print( p )
-        #print(pattern)
-        #print(str(p))
         if re.search(pattern, str(p), flags=re.IGNORECASE):
             print(p)
             chemin_absolu = os.path.abspath(p)

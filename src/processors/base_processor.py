@@ -22,11 +22,8 @@ class BaseProcessor(ABC):
         if path_exe is None:
             class_name = type(self).__name__[:-len("Processor")]
             path_exe = utils.get_path_in_ini(class_name)
-            print(path_exe)
 
         self.path_exe = path_exe
-
-        print(self.path_exe)
         
         try:
             # Exécutez la commande avec subprocess et vérifiez si elle s'est terminée avec succès
